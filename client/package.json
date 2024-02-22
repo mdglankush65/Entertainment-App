@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.io/mdglankush65/Entertainment-App",
+  "homepage": "https://mdglankush65.github.io/Entertainment-App/",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@apollo/client": "^3.5.8",
