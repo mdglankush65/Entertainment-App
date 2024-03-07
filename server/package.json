@@ -12,12 +12,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aos": "^2.3.4",
     "apollo-server-express": "^3.6.2",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
     "express": "^4.17.2",
     "graphql": "^16.3.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.8"
+    "graphql-type-json": "^0.3.2",
+    "idb": "^7.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^6.1.8",
+    "openai": "^4.28.4",
+    "pako": "^2.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
