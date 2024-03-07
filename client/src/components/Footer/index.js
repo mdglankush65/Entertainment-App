@@ -1,12 +1,13 @@
 import React from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowCircleRight, faContactBook } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  // const location = useLocation();
+  // const navigate = useNavigate();
   return (
 <div>
   <footer className="text-center text-white">
@@ -68,7 +69,7 @@ const Footer = () => {
       </section>
     </div>
     <div className="text-center p-3"> © 2023 Copyright:
-      <a className="text-white">PopcornPeek</a>
+      <p className="text-white">PopcornPeek</p>
     </div>
   </footer>
 </div>

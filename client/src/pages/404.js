@@ -4,7 +4,8 @@ import { useLocation, useNavigate,Link } from 'react-router-dom';
 
 import '../styles/NotFound.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faH, faHome } from '@fortawesome/free-solid-svg-icons';
+// import { faBackward, faH, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faHome } from '@fortawesome/free-solid-svg-icons';
 function NotFound() {
     const location = useLocation();
   const navigate = useNavigate();

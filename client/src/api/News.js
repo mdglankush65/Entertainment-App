@@ -5,4 +5,4 @@ const news = async () => {
     
 };
 
-export default { news };
+export default news;

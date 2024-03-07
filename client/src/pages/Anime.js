@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Placeholder from 'react-bootstrap/Placeholder';
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import play from '../styles/images/play.svg';
-import Spinner from 'react-bootstrap/Spinner';
-
-import filterlist from '../styles/images/filter.svg';
 import { openDB } from 'idb';
 
 const Series = () => {
@@ -50,6 +46,7 @@ const Series = () => {
 
     useEffect(() => {
         getContent();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page, filter]);
 
     const handleLoadMore = () => {
@@ -102,7 +99,7 @@ const Series = () => {
                                             alt="Card image"
                                         />
                                         <Card.ImgOverlay>
-                                            <img className='playbtn' src={play}></img>
+                                            <img className='playbtn' src={play} alt=''></img>
                                             <div className='imageoverlay'>
                                                 <Card.Title>{content.title}</Card.Title>
                                                 <Card.Text>{`Rank: ${content.rank}`}</Card.Text>

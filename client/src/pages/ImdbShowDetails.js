@@ -4,13 +4,10 @@ import { openDB } from 'idb';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { MyContext, MyProvider } from '../components/MyContext';
-
+import { MyContext } from '../components/MyContext';
 import { ADD_SHOW } from '../utils/mutations';
-
-import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import axios from 'axios';
 import imdblogo from '../styles/images/imdblogo.svg'
@@ -40,6 +37,7 @@ const MoreDetails = () => {
     const { loading, data, err } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
         variables: { username: userParam },
     });
+    console.log(error,err);
     useEffect(() => {
         if (!loading && reviewsAndEpisodeGroups) {
             const user = data?.me || data?.user || {};
@@ -48,6 +46,7 @@ const MoreDetails = () => {
             setHeartFilled(isShowSaved)
             setSavedShows({ ...savedShows, [id]: isShowSaved });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading, data, id, reviewsAndEpisodeGroups]);
 
     const fetchShows = async () => {
@@ -132,6 +131,7 @@ const MoreDetails = () => {
         };
 
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     // useEffect(() => {
@@ -146,7 +146,7 @@ const MoreDetails = () => {
                 const showData = {
                     themoviedb
                 };
-                const { data } = await addShow({
+                await addShow({
                     variables: { userId, show: showData },
                 });
                 const newHeartFilledState = !heartFilled;
@@ -219,10 +219,10 @@ const MoreDetails = () => {
                                 <div className="text-center">
                                     <div className='showdetail-sec-imgcontainer'>
                                         <div>
-                                            <img className=' smallimage mx-auto' src={`${additionalData.image}`} alt="Backdrop Image" />
+                                            <img className=' smallimage mx-auto' src={`${additionalData.image}`} alt="Backdrop" />
                                             {reviewsAndEpisodeGroups.episodeGroups.networks.length > 0 ? (
                                                 <div style={{ display: 'flex', marginTop: '20px' }}>
-                                                    <img src={`https://image.tmdb.org/t/p/original/${reviewsAndEpisodeGroups.episodeGroups.networks[0].logo_path}`} style={{ width: '70px' }}></img>
+                                                    <img src={`https://image.tmdb.org/t/p/original/${reviewsAndEpisodeGroups.episodeGroups.networks[0].logo_path}`} style={{ width: '70px' }} alt=''></img>
                                                     <a
                                                         type='button'
                                                         href={reviewsAndEpisodeGroups.episodeGroups.homepage
@@ -241,7 +241,7 @@ const MoreDetails = () => {
                                         <div className='mx-auto'>
                                             <h1 className="text-white mx-auto my-5">{additionalData.title}</h1>
                                             <div className='w-25 ratingcontainer'>
-                                                <img src={imdblogo}></img>
+                                                <img src={imdblogo} alt=''></img>
                                                 <h5 className='fs-1 align-baseline mx-4'>{additionalData.imDbRating}</h5>
                                                 <div>
                                                     {/* <CircularProgressbar value={percentage} maxValue={10} text={`${percentage}%`} /> */}
@@ -302,16 +302,16 @@ const MoreDetails = () => {
                                                         <Popover id={`popover-positioned-right}`}>
                                                             <Popover.Body className='bg-dark'>
                                                                 <div>
-                                                                    <a href={'https://www.movieboxpro.app/index/search?word=' + additionalData.title} target="_blank">
-                                                                        <img className='watch-icons' src={moviebox}></img>
+                                                                    <a href={'https://www.movieboxpro.app/index/search?word=' + additionalData.title} rel="noreferrer" target="_blank">
+                                                                        <img className='watch-icons' src={moviebox}alt=''></img>
                                                                     </a>
 
-                                                                    <a href={'https://flixhq.to/search/' + additionalData.title} target="_blank">
-                                                                        <img className='watch-icons' src={flixhq}></img>
-                                                                    </a> <a href={'https://flixtor.si/show/search/' + additionalData.title + '/from/1995/to/2099/rating/0/votes/0/language/all/type/tvshows/genre/all/relevance/page/1'} target="_blank">
-                                                                        <img className='watch-icons' src={flixhq}></img>
-                                                                    </a> <a href={'https://flixhq.to/search/' + additionalData.title} target="_blank">
-                                                                        <img className='watch-icons' src={flixhq}></img>
+                                                                    <a href={'https://flixhq.to/search/' + additionalData.title} rel="noreferrer" target="_blank">
+                                                                        <img className='watch-icons' src={flixhq}alt=''></img>
+                                                                    </a> <a href={'https://flixtor.si/show/search/' + additionalData.title + '/from/1995/to/2099/rating/0/votes/0/language/all/type/tvshows/genre/all/relevance/page/1'} rel="noreferrer" target="_blank">
+                                                                        <img className='watch-icons' src={flixhq}alt=''></img>
+                                                                    </a> <a href={'https://flixhq.to/search/' + additionalData.title} rel="noreferrer" target="_blank">
+                                                                        <img className='watch-icons' src={flixhq}alt=''></img>
                                                                     </a>
                                                                 </div>
                                                             </Popover.Body>

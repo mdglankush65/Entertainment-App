@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { Navigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import Card from 'react-bootstrap/Card';
-import { Button } from 'react-bootstrap';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Auth from '../utils/auth';
-import helper from '../styles/images/helper.svg'
 import IconDoubleRight from '../components/Icons/Right-arrow';
 import News from '../components/News';
 import API from '../api/Trending';
@@ -17,8 +15,6 @@ import MovieNews from '../components/Movie-tv-news';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Recommend from '../components/Recommend';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { Loader } from '../components/Loader';
-import youtube from '../styles/images/youtubetv.png'
 import axios from 'axios';
 
 
@@ -38,7 +34,7 @@ const Movies = () => {
     });
 
     const user = data?.me || data?.user || {};
-
+    console.log(showchat,loading,data,user);
     useEffect(() => {
 
         if (Auth.loggedIn()) {
@@ -304,11 +300,12 @@ const Movies = () => {
     icon={blur[show.id] ? faEye : faEyeSlash} 
     style={{ position: 'absolute', top: '25px', left: '35px', zIndex: 22, cursor: 'pointer' }} 
     onClick={(e) => handleBlurToggle(e, show.id)}
-/></div>
-
-                       
+/></div>       
                     )
+
                 }
+                else
+                    return null;
             })}
                         </div>
                     </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
-import IconAppletv from '../components/Icons/Home';
+// import IconAppletv from '../components/Icons/Home';
 import Notification from '../components/Notification/Alerts';
 
 import Auth from '../utils/auth';
@@ -20,7 +20,7 @@ const Login = (props) => {
       [name]: value,
     });
   };
-
+  console.log(error);
   useEffect(() => {
     const savedEmail = localStorage.getItem('email');
     const savedPassword = localStorage.getItem('password');

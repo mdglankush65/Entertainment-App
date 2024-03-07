@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 
-const TrendingAnime = async (query) =>
+const trendingAnime = async (query) =>
   axios.get(`https://kitsu.io/api/edge/trending/anime`);
-export default { TrendingAnime};
+export default trendingAnime;

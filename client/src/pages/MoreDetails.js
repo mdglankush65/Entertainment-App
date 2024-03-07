@@ -4,19 +4,19 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import CarouselCards from '../components/Similar';
 import ButtonSlideOut from '../components/WatchNow';
-import {MyContext, MyProvider} from '../components/MyContext';
+import {MyContext} from '../components/MyContext';
 
 import { ADD_SHOW } from '../utils/mutations';
 import 'react-circular-progressbar/dist/styles.css';
-import { Button, Card, Carousel } from 'react-bootstrap';
+import { Card, Carousel } from 'react-bootstrap';
 
-import Tvapi from '../api/ShowDetail';
+import Details from '../api/ShowDetail';
 // import { generateText } from'../api/ShowDetail';
-import imdb from '../api/Imdb';
+// import imdb from '../api/Imdb';
 import Notification from '../components/Notification/Alerts';
 import Comments from '../components/Comments';
 import imdblogo from '../styles/images/imdblogo.svg'
@@ -49,6 +49,7 @@ const MoreDetails = () => {
     const { loading, data, err } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
         variables: { username: userParam },
     });
+    console.log(error,err);
     useEffect(() => {
         if (!loading) {
             const user = data?.me || data?.user || {};
@@ -58,6 +59,7 @@ const MoreDetails = () => {
             setSavedShows({ ...savedShows, [id]: isShowSaved });
 
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading, data, id]);
     useEffect(() => {
         const fetchData = async () => {
@@ -69,10 +71,11 @@ const MoreDetails = () => {
                 try {
                     const themoviedbRes = await axios.get(`https://api.themoviedb.org/3/tv/${id}/external_ids?api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
                     const imdbRes = await axios.get(`https://imdb-api.com/en/API/Title/k_mmsg1u7d/${themoviedbRes.data.imdb_id}/Trailer,WikipediaFullActor,FullCast`);
+                    console.log("Ethe tak sab set h or sahi chal rha h");
                     const reviewsResponse = await axios.get(`https://api.themoviedb.org/3/tv/${id}/reviews?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`);
 
-                    const showRes = await Tvapi.searchTv(id);
-                    const videoRes = await Tvapi.tvVideos(id);
+                    const showRes = await Details.searchTv(id);
+                    const videoRes = await Details.tvVideos(id);
 
                     const newShow = {
                         id,
@@ -88,6 +91,7 @@ const MoreDetails = () => {
 
                     setShow(newShow);
                 } catch (error) {
+                    console.log("Ethe error  aa rya si jado t");
                     console.error('Error fetching data', error);
                 }
             } else {
@@ -118,7 +122,7 @@ const MoreDetails = () => {
                 const showData = {
                     themoviedb
                 };
-                const { data } = await addShow({
+                await addShow({
                     variables: { userId, show: showData },
                 });
                 const newHeartFilledState = !heartFilled;
@@ -196,10 +200,10 @@ const MoreDetails = () => {
                                 <div className="text-center">
                                     <div className='showdetail-sec-imgcontainer'>
                                         <div>
-                                            <img className=' smallimage mx-auto' src={`https://image.tmdb.org/t/p/original/${show.show.poster_path}`} alt="Backdrop Image" />
+                                            <img className=' smallimage mx-auto' src={`https://image.tmdb.org/t/p/original/${show.show.poster_path}`} alt="Backdrop" />
                                             {show.show.networks.length > 0 ? (
                                                 <div style={{ display: 'flex', marginTop: '20px' }}>
-                                                    <img src={`https://image.tmdb.org/t/p/original/${show.show.networks[0].logo_path}`} style={{ width: '70px' }}></img>
+                                                    <img src={`https://image.tmdb.org/t/p/original/${show.show.networks[0].logo_path}`} style={{ width: '70px' }}alt=''></img>
                                                     <a
                                                         type='button'
                                                         href={show.show.homepage
@@ -216,7 +220,7 @@ const MoreDetails = () => {
                                         <div className='mx-auto'>
                                             <h1 className="text-white mx-auto mt-5 mb-5">{show.show.name}</h1>
                                             <div className='w-25 ratingcontainer'>
-                                                <img src={imdblogo}></img>
+                                                <img src={imdblogo} alt=''></img>
                                                 <h5 style={{ alignSelf: 'center', margin: '10px', fontSize: '30px' }}>{show.imdb.imDbRating}</h5>
                                                 <div style={{marginLeft:'20px'}}>
                                                     <CircularProgressbar value={percentage} maxValue={10} text={`${percentage}%`} />

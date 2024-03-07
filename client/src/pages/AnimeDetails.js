@@ -1,17 +1,15 @@
 import React, { useState, useEffect,useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import { CircularProgressbar } from 'react-circular-progressbar';
 import { useMutation, useQuery } from '@apollo/client';
 import Auth from '../utils/auth';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 import { useParams } from 'react-router-dom';
 import { ADD_ANIME } from '../utils/mutations';
 import Notification from '../components/Notification/Alerts';
-import {MyContext, MyProvider} from '../components/MyContext';
+import {MyContext} from '../components/MyContext';
 
 import 'react-circular-progressbar/dist/styles.css';
-import API from '../api/AnimeDetails';
-import axios from 'axios';
+import animeDetail from '../api/AnimeDetails';
 import { openDB } from 'idb';
 const setupDB = async () => {
     return openDB('MyDBAnime', 1, {
@@ -47,6 +45,7 @@ useEffect(() => {
         setHeartFilled(isAnimeSaved);
         setSavedAnimes({ ...savedAnimes, [name]: isAnimeSaved });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [loading, data, name]);
 
     useEffect(() => {
@@ -56,7 +55,8 @@ useEffect(() => {
 
             if (!cache || Date.now() - cache.timestamp > 86400000) {
                 try {
-                    const animeRes = await API.AnimeDetails(name);
+                    const animeRes = await animeDetail(name);
+                    console.log("aade tak koi error koni aa rya h");
                     const newAnime = {
                         name,
                         data: animeRes.data.data[0],
@@ -65,6 +65,7 @@ useEffect(() => {
                     await db.put('myAnimes', newAnime, name);
                     setAnime(newAnime);
                 } catch (error) {
+                    console.log("aade bhi error aa rha h");
                     console.error('Error fetching data', error);
                 }
             } else {
@@ -90,7 +91,7 @@ useEffect(() => {
                     animeId: anime.data.id,
                     animeName: animeTitle,
                 };
-                const { data } = await addAnime({
+                await addAnime({
                     variables: { userId, anime: animeData },
                 });
             
@@ -129,7 +130,7 @@ const updatedSavedAnimes = {
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="anime__details__pic set-bg">
-                                <img src={anime.data.attributes.posterImage.original}></img>
+                                <img src={anime.data.attributes.posterImage.original} alt=''></img>
                                 {/* <div class="comment"><i class="fa fa-comments"></i> 11</div>
                     <div class="view"><i class="fa fa-eye"></i> 9141</div> */}
                             </div>
@@ -142,11 +143,11 @@ const updatedSavedAnimes = {
                                 </div>
                                 <div class="anime__details__rating">
                                     <div class="rating">
-                                        <a><i class="fa fa-star"></i></a>
-                                        <a><i class="fa fa-star"></i></a>
-                                        <a><i class="fa fa-star"></i></a>
-                                        <a><i class="fa fa-star"></i></a>
-                                        <a><i class="fa fa-star-half-o"></i></a>
+                                        <p><i class="fa fa-star"></i></p>
+                                        <p><i class="fa fa-star"></i></p>
+                                        <p><i class="fa fa-star"></i></p>
+                                        <p><i class="fa fa-star"></i></p>
+                                        <p><i class="fa fa-star-half-o"></i></p>
                                     </div>
                                     {/* <span><CircularProgressbar value={percentage} maxValue={100} text={`${percentage}%`} /></span> */}
                                 </div>

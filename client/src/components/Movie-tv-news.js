@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import ProgressBar from 'react-bootstrap/ProgressBar';
+// import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { openDB } from 'idb';
 
@@ -43,6 +43,7 @@ const MovieNews = () => {
 
   useEffect(() => {
     getNews();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleModalClose = () => setModalShow(false);
@@ -75,7 +76,7 @@ const MovieNews = () => {
                 <span class="placeholder col-6"></span>
                 <span class="placeholder col-8"></span>
               </p>
-              <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+              <p class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></p>
             </div>
           </div>
           </div>
@@ -84,7 +85,7 @@ const MovieNews = () => {
               {news.map((network, index) => {
                 return (
                   <div className="container my-2" key={network.author}>
-                    <a variant="primary" onClick={() => handleModalShow(network)}>
+                    <p variant="primary" onClick={() => handleModalShow(network)}>
                       <div className="filter__gallery2">
                         <div
                           className="product__sidebar__view__item set-bg"
@@ -93,13 +94,13 @@ const MovieNews = () => {
                           }}
                         >
                           <h5>
-                            <a onClick={() => handleModalShow(network)} style={{ color: 'white' }}>
+                            <p onClick={() => handleModalShow(network)} style={{ color: 'white' }}>
                               {network.title}
-                            </a>
+                            </p>
                           </h5>
                         </div>
                       </div>
-                    </a>
+                    </p>
                     <Modal show={modalShow} onHide={handleModalClose}>
                       <Modal.Header className="product__sidebar__view__item set-bg"
                         style={{

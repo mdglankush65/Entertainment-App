@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import Spinner from 'react-bootstrap/Spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
-
 import Auth from '../utils/auth';
 import helper from '../styles/images/chat.svg'
 function App() {
@@ -24,7 +22,7 @@ function App() {
   });
 
   const user = data?.me || data?.user || {};
-
+  console.log(loading,user);
   if (Auth.loggedIn()) {
     console.log(Auth.getProfile().data.username);
 
@@ -107,7 +105,7 @@ function App() {
                         <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
                       </div>
 
-                      <img class="direct-chat-img" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="message user image"></img>
+                      <img class="direct-chat-img" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="message user"></img>
 
                       <div class="direct-chat-text">
                       Hello, I'm FilmBot, an AI here to answer your questions on movies, TV shows, and anime. How can i help?                      </div>
@@ -118,7 +116,7 @@ function App() {
                             <span class="direct-chat-timestamp pull-left">{new Date(conversation.timestamp).toLocaleString()}</span>
                           </div>
 
-                          <img class="direct-chat-img" src="https://img.icons8.com/office/36/000000/person-female.png" alt="message user image"></img>
+                          <img class="direct-chat-img" src="https://img.icons8.com/office/36/000000/person-female.png" alt="message user"></img>
 
                           <div class="direct-chat-text mychat">
                             {conversation.showName}
@@ -129,7 +127,7 @@ function App() {
                               <span className="direct-chat-name pull-right"></span>
                               <span className="direct-chat-timestamp pull-right">{new Date(conversation.timestamp).toLocaleString()}</span>
                             </div>
-                            <img className="direct-chat-img" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="message user image"></img>
+                            <img className="direct-chat-img" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="message user"></img>
                             <div className="direct-chat-text aichat">
                               {conversation.generatedText}
                             </div>
@@ -166,9 +164,9 @@ function App() {
             </div>
           )}
           {!showChat && (
-            <a className='chat-container' id='chat' onClick={handleShowChat}>
-              <img className='helpericon' src={helper}></img>
-              </a>
+            <p className='chat-container' id='chat' onClick={handleShowChat}>
+              <img className='helpericon' src={helper} alt=''></img>
+              </p>
 
           )}</div>
       ) : (<div></div>)

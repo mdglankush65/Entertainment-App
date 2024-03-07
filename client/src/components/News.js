@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import API from '../api/News';
+// import news from '../api/News';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { openDB } from 'idb';
 
@@ -43,7 +43,7 @@ const News = () => {
             console.log("🚀 ~ file: News.js:35 ~ getNews ~ newsData:", newsData)
 
             if (!newsData || new Date() - new Date(newsData.fetchTime) > 3600000) {
-                const res = await API.news();
+                const res = await news();
                 newsData = {
                     fetchTime: new Date(),
                     articles: res.data.articles,
@@ -61,6 +61,7 @@ const News = () => {
 
     useEffect(() => {
         getNews();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // useEffect(() => {
@@ -82,7 +83,7 @@ const News = () => {
             {isLoading ? (<div></div>) : (
                 <><div className='news-slit'>
                     <div className='main-news'>
-                        <img src={news[0].image} style={{ width: '100%' }}></img>
+                        <img src={news[0].image} style={{ width: '100%' }} alt=''></img>
                         <div className="info-overlay">
                             <div className='info-text'>{news[0].title}</div>
                             <a href={news[0].url} target='blank'>
@@ -95,7 +96,7 @@ const News = () => {
                     <div className='smaller-news-container'>
                         <div className='smaller-new'>
                             <div className='small-news-one'>
-                                <img src={news[2].image} style={{ width: '100%', minHeight: '204px' }} />
+                                <img src={news[2].image} style={{ width: '100%', minHeight: '204px' }} alt='' />
                                 <a href={news[2].url} style={{textDecoration:'none'}}  target='blank'>
                                 <div className='overlay-text'>{news[2].title}
                                 </div>
@@ -103,7 +104,7 @@ const News = () => {
                                 </a>
                             </div>
                             <div className='small-news-one'>
-                                <img src={news[3].image} style={{ width: '100%', minHeight: '204px' }} />
+                                <img src={news[3].image} style={{ width: '100%', minHeight: '204px' }} alt='' />
                                 <a href={news[3].url} style={{textDecoration:'none'}}  target='blank'>
                                 <div className='overlay-text'>{news[3].title}
                                 </div>
@@ -119,7 +120,7 @@ const News = () => {
                         <div className='smaller-news-container'>
                             <div className='smaller-new'>
                                 <div className='small-news-one'>
-                                    <img src={news[4].image} style={{ width: '100%', minHeight: '204px' }} />
+                                    <img src={news[4].image} style={{ width: '100%', minHeight: '204px' }} alt='' />
                                     <a href={news[4].url} style={{textDecoration:'none'}}  target='blank'>
                                 <div className='overlay-text'>{news[4].title}
                                 </div>
@@ -127,7 +128,7 @@ const News = () => {
                                 </a>
                                 </div>
                                 <div className='small-news-one'>
-                                    <img src={news[5].image} style={{ width: '100%', minHeight: '204px' }} />
+                                    <img src={news[5].image} style={{ width: '100%', minHeight: '204px' }} alt='' />
                                     <a href={news[5].url} style={{textDecoration:'none'}}  target='blank'>
                                 <div className='overlay-text'>{news[5].title}
                                 </div>
@@ -138,7 +139,7 @@ const News = () => {
                             {/* <div className='smaller-new'></div> */}
                         </div>
                         <div className='main-news'>
-                            <img src={news[1].image} style={{ width: '100%' }}></img>
+                            <img src={news[1].image} style={{ width: '100%' }} alt='' ></img>
                             <div className="info-overlay">
                                 <div className='info-text'>{news[1].title}</div>
                                 <a href={news[1].url} target='blank'>

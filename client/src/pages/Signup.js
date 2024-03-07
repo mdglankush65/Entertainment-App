@@ -16,7 +16,7 @@ const Signup = () => {
   const [notification, setNotification] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [shakeButton, setShakeButton] = useState(false);
-
+  console.log(error);
   const handleChange = (event) => {
     const { name, value } = event.target;
 

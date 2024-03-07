@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
-import API from '../api/Kitsu'
+import trendingAnime from '../api/Kitsu'
 import IconDoubleRight from '../components/Icons/Right-arrow';
 
 const Trendinganime = () => {
@@ -13,7 +13,7 @@ const Trendinganime = () => {
 
     const trending = async () => {
         try {
-            const res = await API.TrendingAnime();
+            const res = await trendingAnime();
             setAnime(res.data.data);
             setIsLoading(false)
         } catch (err) {
@@ -31,12 +31,12 @@ const Trendinganime = () => {
 
     return (
         <aside className='anime-container'>
-            <div class="product__sidebar" style={{margin:'70px 20px'}}>
-                <div class="product__sidebar__view">
-                    <div class="section-title">
+            <div className="product__sidebar" style={{margin:'70px 20px'}}>
+                <div className="product__sidebar__view">
+                    <div className="section-title">
                         <h5>Top Anime</h5>
                     </div>
-                    <ul class="filter__controls">
+                    <ul className="filter__controls">
                     <Link to='/animepage' className="primary-btn ms-auto" style={{ textDecoration: 'none', color: '#1b9cff' }}>View All <span className="arrow_right" ><IconDoubleRight /></span></Link>
 
                     </ul>
@@ -61,12 +61,12 @@ const Trendinganime = () => {
                                                 : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'
                                 return (
                                     <Link to={`/anime?name=${name}`}key={animee.id}>
-                                    <div class="filter__gallery" >
-                                        <div class="product__sidebar__view__item set-bg"
+                                        <div className="filter__gallery" >
+                                            <div className="product__sidebar__view__item set-bg"
                                             style={{ backgroundImage: `url(${imageUrl})` }}>
-                                            <div class="ep">{animee.attributes.totalLength}</div>
-                                            <div class="view"><i class="fa fa-eye"></i> {animee.id}</div>
-                                            <h5><a href="#">{animee.attributes.titles.en === undefined ? animee.attributes.titles.en_jp : animee.attributes.titles.en}</a></h5>
+                                            <div className="ep">{animee.attributes.totalLength}</div>
+                                                <div className="view"><i className="fa fa-eye"></i> {animee.id}</div>
+                                            <h5><p>{animee.attributes.titles.en === undefined ? animee.attributes.titles.en_jp : animee.attributes.titles.en}</p></h5>
                                         </div>
                                     </div>
                                     </Link>

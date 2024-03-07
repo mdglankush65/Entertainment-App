@@ -4,7 +4,7 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Placeholder from 'react-bootstrap/Placeholder';
+// import Placeholder from 'react-bootstrap/Placeholder';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import play from '../styles/images/play.svg'
@@ -72,6 +72,7 @@ const Series = () => {
             setDisplayLimit(20);
         }
         getContent();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page, filter, searchUs]);
 
     const handleLoadMore = () => {

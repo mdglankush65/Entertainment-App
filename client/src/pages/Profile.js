@@ -2,13 +2,12 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Navigate, useParams, Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { openDB } from 'idb';
-import axios from 'axios';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 import { useMutation } from '@apollo/client';
 import { REMOVE_SHOW, REMOVE_MOVIE,REMOVE_ANIME } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarAlt, faPlay, faRankingStar, faArrowRight, faTrashCanArrowUp, faHeart, faHeartBroken } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faPlay, faRankingStar, faArrowRight, faTrashCanArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { MyContext } from '../components/MyContext';
 import { Container, Row, Col, Dropdown } from 'react-bootstrap';
 
@@ -28,7 +27,7 @@ const Profile = () => {
   const [removeShow, { errr }] = useMutation(REMOVE_SHOW);
   const [removeMovie, { er }] = useMutation(REMOVE_MOVIE);
   const [removeAnime, { errorAnime }] = useMutation(REMOVE_ANIME);
-
+  console.log(myState,errr,er,errorAnime);
   // When the delete button is clicked:
   const handleDeleteShow = async (showId, id) => {
     try {
@@ -78,15 +77,15 @@ const Profile = () => {
   };
 
   
-  const isAnimeSaved = (id) => {
-    try {
-      const savedAnimeData = JSON.parse(localStorage.getItem('savedAnime'));
-      return savedAnimeData && savedAnimeData.hasOwnProperty(id);
-    } catch (err) {
-      console.error(err);
-      return false;
-    }
-  };
+  // const isAnimeSaved = (id) => {
+  //   try {
+  //     const savedAnimeData = JSON.parse(localStorage.getItem('savedAnime'));
+  //     return savedAnimeData && savedAnimeData.hasOwnProperty(id);
+  //   } catch (err) {
+  //     console.error(err);
+  //     return false;
+  //   }
+  // };
   
   useEffect(() => {
     const setupDB = async () => {
@@ -140,6 +139,7 @@ const Profile = () => {
     };
 
     fetchShows();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.shows, db]);
   useEffect(() => {
     const fetchMovies = async () => {
@@ -197,7 +197,7 @@ const Profile = () => {
 
     console.log('all:', cachedShows, cachedMovies, "annime:",cachedAnime);
     setIsLoading(false);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cachedShows])
 
   if (error) {
@@ -236,12 +236,12 @@ const Profile = () => {
           <section className="dark text-dark">
             <div className="container py-4">
             <article className={`postcard ${cards.theme} ${getRatingColor(card.imdb ? card.imdb.imDbRating : card.additionalData.imDbRating)}`}>
-                <a className="postcard__img_link" >
+                <p className="postcard__img_link" >
                   <img className="postcard__img" src={card.imdb && card.imdb.image} alt={card.imdb && card.imdb.fullTitle} />
-                </a>
+                </p>
                 <div className="postcard__text">
                   <h1 className={`postcard__title ${card.color}`}>
-                    <a href="#">{card.imdb && card.imdb.fullTitle}</a>
+                    <p>{card.imdb && card.imdb.fullTitle}</p>
                   </h1>
                   <div className="postcard__subtitle small">
                     <time datetime={card.imdb && card.imdb.releaseDate}>
@@ -284,12 +284,12 @@ const Profile = () => {
             <section className="dark text-dark">
             <div className="container py-4">
             <article className={`postcard ${cards.theme} ${getRatingColor(card.imdb ? card.imdb.imDbRating : card.additionalData.imDbRating)}`}>
-                <a className="postcard__img_link" href="#">
+                <p className="postcard__img_link">
                   <img className="postcard__img" src={(card.imdb && card.imdb.image) || (card.additionalData && card.additionalData.image)} alt={card.imdb && card.imdb.fullTitle} />
-                </a>
+                </p>
                 <div className="postcard__text">
                   <h1 className={`postcard__title ${card.color}`}>
-                    <a href="#">{(card.imdb && card.imdb.fullTitle) || (card.additionalData.fullTitle)}</a>
+                    <p>{(card.imdb && card.imdb.fullTitle) || (card.additionalData.fullTitle)}</p>
                   </h1>
                   <div className="postcard__subtitle small">
                     <time datetime={card.imdb && card.imdb.releaseDate}>
@@ -316,7 +316,7 @@ const Profile = () => {
 
                     </li>
                     <li className="tag__item">
-                      <a href={card.show ? (card.show.homepage) : (card.reviewsAndEpisodeGroups.episodeGroups.homepage)} target='_blank'>
+                        <a href={card.show ? (card.show.homepage) : (card.reviewsAndEpisodeGroups.episodeGroups.homepage)} rel="noreferrer" target='_blank'>
                          {card.show ? (card.show.networks[0].name) : (card.reviewsAndEpisodeGroups.episodeGroups.networks[0].name)}
                    <FontAwesomeIcon icon={faArrowRight} className="mx-2" />
                       </a>
@@ -335,12 +335,12 @@ const Profile = () => {
           <section className="dark text-dark">
           <div className="container py-4">
           <article className={`postcard ${cards.theme}` }styles={{backgroundColor:"yellow"}}>
-              <a className="postcard__img_link" href="#">
-                <img className="postcard__img" src={card.data.attributes.posterImage.original} />
-              </a>
+              <p className="postcard__img_link">
+                <img className="postcard__img" src={card.data.attributes.posterImage.original} alt='' />
+              </p>
               <div className="postcard__text">
                 <h1 className={`postcard__title ${cards.color}`}>
-                  <a href="#">{card.data.attributes.titles.en}/{card.data.attributes.titles.ja_jp}</a>
+                  <p>{card.data.attributes.titles.en}/{card.data.attributes.titles.ja_jp}</p>
                 </h1>
                 <div className="postcard__subtitle small">
                   <time datetime={card.data.attributes.startDate}>

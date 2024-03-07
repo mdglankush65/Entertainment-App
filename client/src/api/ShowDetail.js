@@ -17,6 +17,5 @@ const generateText = async (prompt) => {
     });
     return response.choices[0].text;
   };
-// const Details = { searchTv, tvVideos, searchMovies, movieVideos, generateText };
-// export default Details;
-export default { searchTv, tvVideos, searchMovies, movieVideos, generateText };
+const Details = { searchTv, tvVideos, searchMovies, movieVideos, generateText };
+export default Details;

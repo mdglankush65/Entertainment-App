@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import API from '../api/Search';
-import API2 from '../api/AnimeDetails';
+import searchData from '../api/Search';
+import animeDetails from '../api/AnimeDetails';
 import { Modal, Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import IconMovieOpenPlayOutline from '../components/Icons/Movie';
@@ -23,7 +23,7 @@ const Search = () => {
 
     const search = () => {
         setIsLoading(true);
-        API.search(searching, isMovie)
+        searchData(searching, isMovie)
             .then((res) => {
                 setView(res.data.results);
                 setIsLoading(false);
@@ -37,7 +37,7 @@ const Search = () => {
     const getAnime = async () => {
         try {
             setIsLoading(true);
-            const res = await API2.AnimeDetails(searching);
+            const res = await animeDetails(searching);
             setAnimeView(res.data.data);
             setIsLoading(false);
         } catch (err) {
@@ -60,6 +60,7 @@ const Search = () => {
             }
         }, 1500);
         return () => clearTimeout(timer);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMovie, searching, isAnime, show]); 
 
     // useEffect(() => {
@@ -110,7 +111,7 @@ const Search = () => {
                                     </div>
                                     <input type="text" class="form-control" autoFocus onChange={(e) => setSearching(e.target.value)}></input>
                                     <div class="input-group-append">
-                                        <span class="input-group-text microphone">{!isAnime ? (<button type="submit" style={{ borderStyle: 'none', backgroundColor: '#e9ecef' }}><img style={{ width: '45px' }} src={searchIcon}></img></button>) : (<img style={{ width: '47px' }} src={Naruto}></img>)}</span>
+                                        <span class="input-group-text microphone">{!isAnime ? (<button type="submit" style={{ borderStyle: 'none', backgroundColor: '#e9ecef' }}><img style={{ width: '45px' }} src={searchIcon} alt="" ></img></button>) : (<img style={{ width: '47px' }} src={Naruto} alt="" ></img>)}</span>
                                     </div>
                                 </div>
 
@@ -136,12 +137,12 @@ const Search = () => {
                                         const name = view.attributes.canonicalTitle;
                                         return (
 
-                                            <Col key={view.id}>
+                                            <Col key={id}>
                                                 <Link to={`/anime?name=${name}`} onClick={handleClose}>
                                                     <Card className='contentcard bg-dark'>
                                                         <Card.Img className='cardimage' src={view.attributes.posterImage.original} alt="Card image" />
                                                         <Card.ImgOverlay >
-                                                            <img className='playbtn' style={{ width: '50px' }} src={play}></img>
+                                                            <img className='playbtn' style={{ width: '50px' }} src={play}alt=""></img>
                                                             <div className='imageoverlay'>
                                                                 <Card.Title>{view.attributes.titles.en}<br></br>{view.attributes.titles.ja_jp}</Card.Title>
 
@@ -164,7 +165,7 @@ const Search = () => {
     <Card className='contentcard bg-dark'>
         <Card.Img className='cardimage' src={`https://image.tmdb.org/t/p/original/${view.poster_path}`}  alt="Card image" />
         <Card.ImgOverlay >
-            <img className='playbtn' style={{width:'50px'}} src={play}></img>
+            <img className='playbtn' style={{width:'50px'}} src={play} alt="" ></img>
             <div className='imageoverlay'>
                 <Card.Title>{view.original_title||view.name}</Card.Title>
                

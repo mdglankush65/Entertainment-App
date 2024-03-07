@@ -8,14 +8,13 @@ import { useParams } from 'react-router-dom';
 import 'react-circular-progressbar/dist/styles.css';
 import axios from 'axios';
 import { openDB } from 'idb';
-import { MyContext, MyProvider } from '../components/MyContext';
+import { MyContext } from '../components/MyContext';
 import { Card, Carousel } from 'react-bootstrap';
-import Movieapi from '../api/ShowDetail';
+import Details from '../api/ShowDetail';
 import { ADD_MOVIE } from '../utils/mutations';
 import Notification from '../components/Notification/Alerts';
 import imdblogo from '../styles/images/imdblogo.svg'
-import CarouselCards from '../components/Similar';
-import ButtonSlideOut from '../components/WatchNow';
+// import CarouselCards from '../components/Similar';
 const setupDB = async () => {
     return openDB('MyDBMovies', 1, {
         upgrade(db) {
@@ -40,7 +39,7 @@ const MoreDetails = () => {
     const { loading, data, err } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
         variables: { username: userParam },
     });
-
+    console.log(error,err);
     useEffect(() => {
         if (!loading) {
             const user = data?.me || data?.user || {};
@@ -48,6 +47,7 @@ const MoreDetails = () => {
             setHeartFilled(isMovieSaved)
             setSavedMovies({ ...savedMovies, [id]: isMovieSaved });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading, data, id]);
 
     useEffect(() => {
@@ -64,8 +64,8 @@ const MoreDetails = () => {
                     // const imdbRes = await axios.get(`https://imdb-api.com/en/API/Title/k_mmsg1u7d/${themoviedbRes.data.imdb_id}/Trailer,WikipediaFullActor,FullCast`);
                     // console.log(" Ye IMDB waala link chal rha h ya nhi   ",imdbRes);
 
-                    const movieRes = await Movieapi.searchMovies(id);
-                    const videoRes = await Movieapi.movieVideos(id);
+                    const movieRes = await Details.searchMovies(id);
+                    const videoRes = await Details.movieVideos(id);
 
                     const newMovie = {
                         id,
@@ -107,7 +107,7 @@ const MoreDetails = () => {
                     imdbId: String(themoviedb.imdb_id),
                 };
 
-                const { data } = await addMovie({
+                await addMovie({
                     variables: { userId, movie: movieData },
                 });
                 const newHeartFilledState = !heartFilled;
@@ -170,10 +170,10 @@ const MoreDetails = () => {
                                 <div className="text-center">
                                     <div className='moviedetail-sec-imgcontainer movie-detail-page' style={{ display: "flex" }}>
                                         <div>
-                                            <img className=' smallimage mx-auto' src={`https://image.tmdb.org/t/p/original/${movie.movie.poster_path}`} alt="Backdrop Image" />
+                                            <img className=' smallimage mx-auto' src={`https://image.tmdb.org/t/p/original/${movie.movie.poster_path}`} alt="Backdrop" />
 
                                             <div style={{ display: 'flex', marginTop: '20px' }}>
-                                                <img src={`https://image.tmdb.org/t/p/original/${movie.movie.production_companies[0].logo_path}`} style={{ width: '70px' }}></img>
+                                                <img src={`https://image.tmdb.org/t/p/original/${movie.movie.production_companies[0].logo_path}`} style={{ width: '70px' }}alt=''></img>
                                                 <a
                                                     type='button'
                                                     href={movie.movie.homepage}
@@ -188,7 +188,7 @@ const MoreDetails = () => {
                                         <div className='mx-auto'>
                                                 <h1 className="text-white mx-auto mt-5 mb-5">{movie.imdb? movie.imdb?.fullTitle:"No title"}</h1>
                                             <div className='w-25 ratingcontainer m-4 g-2'>
-                                                <img src={imdblogo}></img>
+                                                <img src={imdblogo} alt=''></img>
                                                 <h5 style={{ alignSelf: 'center', margin: '10px', fontSize: '30px' }}>{movie.imdb?.imDbRating}</h5>
                                                 <div>
                                                     <CircularProgressbar value={percentage} maxValue={10} text={`${percentage}%`} />
@@ -219,9 +219,9 @@ const MoreDetails = () => {
                                                 </div>
                                             </div>
                                             <div className="anime__details__btn" style={{ display: 'flex', justifyContent: 'center' }}>
-                                                <a style={{ textDecoration: "none", cursor: 'pointer' }} className="follow-btn" onClick={handleSaveMovie}>
+                                                <p style={{ textDecoration: "none", cursor: 'pointer' }} className="follow-btn" onClick={handleSaveMovie}>
                                                     {heartFilled ? <i className="fa fa-heart animate__animated animate__heartBeat"></i> : <i className="fa fa-heart-o"></i>} save
-                                                </a>
+                                                </p>
                                                 {/* <ButtonSlideOut prompt={movie.imdb} /> */}
                                             </div>
 

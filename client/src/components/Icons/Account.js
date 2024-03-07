@@ -17,3 +17,5 @@ class App extends Component {
     );
   }
 };
+let profile = new App();
+export default profile;

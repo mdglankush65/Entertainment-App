@@ -57,7 +57,7 @@ const Header = () => {
     <Navbar key='lg' expand='lg' className={navbar ? 'fixed-top' : ''} style={{backgroundColor:'#008080'}}>
         <Container fluid>
           <Navbar.Brand className='brand me-auto' href="/" style={{ fontSize:'30px'}}>
-            <img src={pop} style={{width: '100px', height:'57px', backgroundColor:'transparent'}}></img>
+            <img src={pop} style={{width: '100px', height:'57px', backgroundColor:'transparent'}} alt='' ></img>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-$'lg'`} onClick={() => setShowOffcanvas(true)}  />
           <Navbar.Offcanvas
@@ -78,7 +78,7 @@ const Header = () => {
                 <Link className={`nav-link ${pathname === '/movies' ? ' px-2 rounded-3 bg-secondary' : 'px-2'}`} to="/movies" onClick={handleOffcanvasClose}><IconMovieOpenPlayOutline /> Movies</Link>
                 <Link className={`nav-link ${pathname === '/TV-Shows' ? ' px-2 rounded-3 bg-secondary' : 'px-2'}`} to="/TV-Shows" onClick={handleOffcanvasClose}><Shows /> Shows</Link>
                 <Link className={`nav-link ${pathname === '/animepage' ? ' px-2 rounded-3 bg-secondary' : 'px-2'}`} to="/animepage" onClick={handleOffcanvasClose}>
-                  <img className='naruto' src={Naruto}></img>
+                  <img className='naruto' src={Naruto} alt='' ></img>
                    Anime</Link>
                 {/* <NavDropdown
                   title="Dropdown"

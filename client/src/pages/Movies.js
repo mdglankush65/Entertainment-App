@@ -31,6 +31,7 @@ const Movies = () => {
 
   useEffect(() => {
     getContent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, filter]);
 
   const handleLoadMore = () => {
@@ -47,7 +48,7 @@ const Movies = () => {
         <>
           <div className='sort-container'>
             <p>
-              <img className='' src={filterlist}></img>
+              <img className='' src={filterlist} alt=''></img>
             </p>
             <Form.Control className='sort mt-5' as="select" value={filter} onChange={handleFilterChange}>
               <option value="popular">popular</option>
@@ -80,7 +81,7 @@ const Movies = () => {
 
                     <Card.ImgOverlay >
 
-                      <img className='playbtn' src={play}></img>
+                      <img className='playbtn' src={play} alt=''></img>
                       <div className='imageoverlay'> <Card.Title>{content.title}</Card.Title>
                         <Card.Text>{content.release_date}</Card.Text></div>
 
