@@ -100,7 +100,7 @@ const News = () => {
                                 <a href={news[2].url} style={{textDecoration:'none'}}  target='blank'>
                                 <div className='overlay-text'>{news[2].title}
                                 </div>
-                                    {/* <FontAwesomeIcon icon={faInfo} className="mx-2" style={{ }} /> */}
+                                    <FontAwesomeIcon icon={faInfo} className="mx-2" style={{ }} />
                                 </a>
                             </div>
                             <div className='small-news-one'>
