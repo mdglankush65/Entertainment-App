@@ -3,7 +3,7 @@
 ## Introduction
 Welcome to Popcorn Peek, a state-of-the-art web application built using the MERN stack (MongoDB, Express.js, React.js, Node.js), designed to fulfill the entertainment needs of its users. Popcorn Peek is your one-stop destination to explore the latest and trending movies, TV shows, and anime. This dynamic platform goes beyond mere listings; it offers an immersive experience into each piece of content. Whether you're looking to watch trailers, dive into detailed descriptions, discover similar titles, or gather essential information such as age ratings, IMDb ratings, and status, Popcorn Peek has it all.
 
-###Deployed Link
+### Deployed Link
    --------------             https://entertainment-app-1.onrender.com/           ----------------------
 
 ## Content
